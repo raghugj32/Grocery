@@ -46,7 +46,7 @@ namespace GroceryDal
         
         public ICollection<OrderItem> OrderItems { get; set; }
         public Delivery Delivery { get; set; }
-
+        public List<Product> Product { get; set; }
     }
 
 

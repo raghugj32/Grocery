@@ -17,12 +17,14 @@ namespace GroceryApi.Controllers
         }
 
 
-        [HttpGet("/search/{pId}")]
-        public IActionResult GetProductDetail(int pId)
+        [HttpGet("{pid}")]
+        public IActionResult GetCustomerById(int pid)
         {
-            var found = ProductService.GetProductById(pId);
-
-            //return the view with matching person object
+            var found = ProductService.GetProductById(pid);
+            if (found == null)
+            {
+                return NotFound();
+            }
             return Ok(found);
         }
 
@@ -35,12 +37,12 @@ namespace GroceryApi.Controllers
 
         }
 
-        [HttpPut("/api/update/{pId}")]
-        public IActionResult UpdateProd([FromRoute] int pId, [FromForm] Product p)
+        [HttpPut("update/{pId}")]
+        public IActionResult UpdateProd(int pId, string Name, int Price, string Desc)
         {
             try
             {
-                ProductService.UpdateProduct(pId, p);
+                ProductService.UpdateProduct(pId, Name, Price, Desc);
                 return Ok("Update Successfull");
             }
             catch (Exception ex)

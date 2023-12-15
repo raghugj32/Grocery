@@ -19,10 +19,10 @@ namespace GroceryLib
         public static Product GetProductById(int productId)
         {
             //return _dbContext.Products.Find(productId);
-            var result = _dbContext.Products.ToList()
+            return _dbContext.Products.ToList()
                  .Where(p => p.ProductId == productId)
                  .FirstOrDefault();
-            return result as Product;
+            
         }
 
         public static void AddProduct(int PId, string Name, int price, string Desc)
@@ -37,7 +37,7 @@ namespace GroceryLib
             _dbContext.SaveChanges();
         }
 
-        public static void UpdateProduct(int pId, Product p)
+        public static void UpdateProduct(int pId, string Name, int price, string Desc)
         {
             //_dbContext.Entry(product).State = EntityState.Modified;
             //_dbContext.SaveChanges();
@@ -45,11 +45,13 @@ namespace GroceryLib
               .ToList()
               .Where(p => p.ProductId == pId)
               .FirstOrDefault();
-
-            tobeupdated.Name = p.Name;
-            tobeupdated.PricePerQuntity= p.PricePerQuntity;
-            tobeupdated.Description = p.Description;
-            _dbContext.SaveChanges();
+            if (tobeupdated != null)
+            {
+                tobeupdated.Name = Name;
+                tobeupdated.PricePerQuntity = price;
+                tobeupdated.Description = Desc;
+                _dbContext.SaveChanges();
+            }
         }
 
         public static void DeleteProduct(int productId)

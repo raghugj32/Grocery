@@ -28,12 +28,18 @@ namespace GroceryApi.Controllers
 
 
         [HttpPost("/api/placeorder")]
-        public IActionResult AddOrder(int OrderId, DateTime ODate,int CustID,int Amount, string Address,string status)
+        public IActionResult AddOrder(int OrderId, DateTime ODate, int CustID, int Amount, string Address, string status)
         {
-            OrderService.PlaceOrder(OrderId,ODate,CustID, Amount, Address,status);
+            OrderService.PlaceOrder(OrderId, ODate, CustID, Amount, Address, status);
             return Ok($"Order Placed {OrderId}");
 
         }
+
+        //public IActionResult PlaceOrder(List<Product> products, int cId, int tamt, string Address)
+        //{
+        //    OrderService.PlaceOrder(products, cId, tamt, Address);
+        //    return Ok("Order Placed Successfully");
+        //}
 
         [HttpPut("/api/update/{OrderId}")]
         public IActionResult Update([FromRoute] int OrderId, [FromForm] Order o)

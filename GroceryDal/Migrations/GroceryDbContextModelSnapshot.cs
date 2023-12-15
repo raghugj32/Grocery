@@ -145,10 +145,15 @@ namespace GroceryDal.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
                     b.Property<int>("PricePerQuntity")
                         .HasColumnType("int");
 
                     b.HasKey("ProductId");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("Products");
                 });
@@ -194,6 +199,13 @@ namespace GroceryDal.Migrations
                     b.Navigation("Product");
                 });
 
+            modelBuilder.Entity("GroceryDal.Product", b =>
+                {
+                    b.HasOne("GroceryDal.Order", null)
+                        .WithMany("Product")
+                        .HasForeignKey("OrderId");
+                });
+
             modelBuilder.Entity("GroceryDal.Customer", b =>
                 {
                     b.Navigation("Orders");
@@ -205,6 +217,8 @@ namespace GroceryDal.Migrations
                         .IsRequired();
 
                     b.Navigation("OrderItems");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("GroceryDal.Product", b =>

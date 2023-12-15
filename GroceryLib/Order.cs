@@ -29,6 +29,18 @@ namespace GroceryLib
             _dbContext.SaveChanges();
         }
 
+        //public static void PlaceOrder(List<Product> products, int cId, int tamt, string Address)
+        //{
+        //    Order order = new Order
+        //    {
+        //        Product = products,
+        //        CustomerId = cId,
+        //        TotalAmount = tamt,
+        //        DeliveryAddress = Address
+        //    };
+        //    _dbContext.Orders.Add(order);
+        //}
+
         public static void UpdateOrder(Order order)
         {
             _dbContext.Entry(order).State = EntityState.Modified;

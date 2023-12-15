@@ -27,6 +27,13 @@ namespace GroceryLib
         //    return result as Customer;
         //}
 
+        public static Customer GetCustById(int id)
+        {
+            return _dbContext.Customers.ToList()
+                 .Where(p => p.CustomerId == id)
+                 .FirstOrDefault();
+        }
+
         public static void AddCustomer(int custId, string pName, string pEmail, string pAddress, string pPhone)
         {
             _dbContext.Customers.Add(new GroceryDal.Customer()
@@ -40,20 +47,37 @@ namespace GroceryLib
             _dbContext.SaveChanges();
         }
 
+        //public static void UpdateCustomer(int CustId, string CName, string Email, string Address, string Phone)
+        //{
+        //    //_dbContext.Entry(customer).State = EntityState.Modified;
+        //    //_dbContext.SaveChanges();
+        //    var tobeupdated = _dbContext.Customers
+        //      .ToList()
+        //      .Where(p => p.CustomerId == CustId)
+        //      .FirstOrDefault();
+
+        //    tobeupdated.Name = CName;
+        //    tobeupdated.Email = Email;
+        //    tobeupdated.Address = Address;
+        //    tobeupdated.Phone = Phone;
+        //    _dbContext.SaveChanges();
+        //}
+
+
         public static void UpdateCustomer(int CustId, string CName, string Email, string Address, string Phone)
         {
-            //_dbContext.Entry(customer).State = EntityState.Modified;
-            //_dbContext.SaveChanges();
-            var tobeupdated = _dbContext.Customers
+            var existcust = _dbContext.Customers
               .ToList()
               .Where(p => p.CustomerId == CustId)
               .FirstOrDefault();
-
-            tobeupdated.Name = CName;
-            tobeupdated.Email = Email;
-            tobeupdated.Address = Address;
-            tobeupdated.Phone = Phone;
-            _dbContext.SaveChanges();
+            if (existcust != null)
+            {
+                existcust.Name = CName;
+                existcust.Email = Email;
+                existcust.Address = Address;
+                existcust.Phone = Phone;
+                _dbContext.SaveChanges();
+            }
         }
 
         public static void DeleteCustomer(int customerId)

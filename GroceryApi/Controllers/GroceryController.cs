@@ -27,6 +27,16 @@ namespace GroceryApi.Controllers
         //    return Ok(found);
         //}
 
+        [HttpGet("{id}")]
+        public IActionResult GetCustomerById(int id)
+        {
+            var found = CustomerService.GetCustById(id);
+            if(found == null)
+            {
+                return NotFound();
+            }
+            return Ok(found);
+        }
 
         [HttpPost("/api/addCustomer")]
         public IActionResult CreateCustomer(int CustId, string CName, string Email, string Address, string Phone)
@@ -36,18 +46,33 @@ namespace GroceryApi.Controllers
 
         }
 
-        [HttpPut("/api/update/{CustId}")]
+        //[HttpPut("/api/update/{CustId}")]
+        //public IActionResult UpdateCust(int CustId, string CName, string Email, string Address, string Phone)
+        //{
+        //    try
+        //    {
+        //        CustomerService.UpdateCustomer(CustId, CName, Email, Address, Phone);
+        //        return Ok("Update Successfull");
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return NotFound(ex.Message);
+        //    }
+        //}
+
+        [HttpPut("update/{CustId}")]
         public IActionResult UpdateCust(int CustId, string CName, string Email, string Address, string Phone)
         {
             try
             {
-                CustomerService.UpdateCustomer(CustId, CName,Email, Address, Phone);               
+                CustomerService.UpdateCustomer(CustId, CName, Email, Address, Phone);
                 return Ok("Update Successfull");
             }
             catch (Exception ex)
-            {               
+            {
                 return NotFound(ex.Message);
             }
+
         }
 
         [HttpDelete("/api/delete")]
